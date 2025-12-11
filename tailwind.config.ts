@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        chalk: ['Permanent Marker', 'cursive'],
+        hand: ['Patrick Hand', 'cursive'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,15 +51,24 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        // Professor colors
+        professor: {
+          maykol: "hsl(var(--professor-maykol))",
+          sekeff: "hsl(var(--professor-sekeff))",
+          iallen: "hsl(var(--professor-iallen))",
+          jivago: "hsl(var(--professor-jivago))",
+          maylon: "hsl(var(--professor-maylon))",
+          jeferson: "hsl(var(--professor-jeferson))",
+        },
+        // Game colors
+        hp: {
+          bar: "hsl(var(--hp-bar))",
+          low: "hsl(var(--hp-bar-low))",
+          bg: "hsl(var(--hp-bar-bg))",
+        },
+        chalk: {
+          white: "hsl(var(--chalk-white))",
+          glow: "hsl(var(--chalk-glow))",
         },
       },
       borderRadius: {
@@ -65,20 +78,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
