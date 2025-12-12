@@ -55,7 +55,7 @@ export function ThreadCard({
       
       {/* Avatar */}
       <div className={cn('w-12 h-12 rounded-full overflow-hidden border-2 mb-2', 'shadow-md', isRunning && 'border-primary')}>
-        <img src={avatarMap[professor.name]} alt={professor.displayName} className="w-full h-full opacity-100 border-dashed border-muted object-fill" />
+        <img src={avatarMap[professor.name]} alt={professor.displayName} className="w-full h-full opacity-100 border-dashed border-muted object-fill shadow-none" />
       </div>
       
       {/* Nome */}
