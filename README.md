@@ -1,5 +1,4 @@
-# Bem-vindo ao seu projeto Lovable
-
+# Bem-vindo a Batalha de Professores
 
 
 ### 🔹 Usar sua IDE preferida
