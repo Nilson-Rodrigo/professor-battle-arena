@@ -4,12 +4,12 @@
  * ===========================================
  * 
  * Mostra visualmente como o escalonador Round-Robin funciona,
- * indicando qual "thread" está executando no momento.
+ * usando cards modernos com avatares dos professores.
  */
 
 import { Professor } from '@/game/types';
-import { cn } from '@/lib/utils';
-import { ArrowRight } from 'lucide-react';
+import { ThreadCard } from './ThreadCard';
+import { ArrowRight, RotateCcw } from 'lucide-react';
 
 interface SchedulerVisualizationProps {
   professors: Professor[];
@@ -17,91 +17,55 @@ interface SchedulerVisualizationProps {
   currentTurn: number;
 }
 
-const colorBgMap: Record<string, string> = {
-  'professor-maykol': 'bg-red-500',
-  'professor-sekeff': 'bg-orange-500',
-  'professor-iallen': 'bg-yellow-500',
-  'professor-jivago': 'bg-green-500',
-  'professor-maylon': 'bg-blue-500',
-  'professor-jeferson': 'bg-purple-500',
-};
-
 export function SchedulerVisualization({ 
   professors, 
   currentAttackerIndex,
   currentTurn 
 }: SchedulerVisualizationProps) {
   return (
-    <div className="chalkboard-frame rounded-lg p-4">
-      <h3 className="font-chalk text-lg mb-3 chalk-text">
-        ⚙️ Escalonador Round-Robin
-      </h3>
-      
-      <div className="mb-3 text-sm font-hand text-muted-foreground">
-        Turno atual: <span className="text-primary font-bold">{currentTurn}</span>
+    <div className="rounded-2xl p-6 backdrop-blur-md bg-card/40 border border-border/50 shadow-xl">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <RotateCcw className="w-5 h-5 text-primary" />
+            Escalonador Round-Robin
+          </h3>
+          <p className="text-sm text-muted-foreground mt-1">
+            Cada thread executa 1 quantum (1 ataque) e passa a vez
+          </p>
+        </div>
+        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/30">
+          <span className="text-sm text-muted-foreground">Turno:</span>
+          <span className="text-2xl font-bold font-mono text-primary">{currentTurn}</span>
+        </div>
       </div>
       
-      {/* Fila de threads */}
-      <div className="flex items-center justify-center flex-wrap gap-2">
+      {/* Fila de Threads */}
+      <div className="flex items-center justify-center flex-wrap gap-3">
         {professors.map((professor, index) => (
           <div key={professor.threadId} className="flex items-center">
-            <div
-              className={cn(
-                'relative px-3 py-2 rounded-lg border-2 transition-all duration-300',
-                'flex flex-col items-center min-w-[60px]',
-                !professor.isAlive && 'opacity-30 line-through',
-                index === currentAttackerIndex && professor.isAlive && 'ring-2 ring-primary scale-110',
-              )}
-            >
-              {/* Indicador de "executando" */}
-              {index === currentAttackerIndex && professor.isAlive && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-xs text-primary font-bold animate-bounce">
-                  ▼ RUN
-                </div>
-              )}
-              
-              {/* Bolinha colorida da thread */}
-              <div 
-                className={cn(
-                  'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1',
-                  colorBgMap[professor.color],
-                  professor.isAlive ? 'opacity-100' : 'opacity-30'
-                )}
-              >
-                T{professor.threadId}
-              </div>
-              
-              {/* Nome abreviado */}
-              <span className="text-xs font-hand">
-                {professor.displayName.slice(0, 3)}
-              </span>
-              
-              {/* Status */}
-              <span className={cn(
-                'text-[10px]',
-                professor.isAlive ? 'text-hp-bar' : 'text-destructive'
-              )}>
-                {professor.isAlive ? 'READY' : 'DEAD'}
-              </span>
-            </div>
+            <ThreadCard
+              professor={professor}
+              isRunning={index === currentAttackerIndex && professor.isAlive}
+            />
             
-            {/* Seta para próximo (exceto último) */}
+            {/* Seta para próximo */}
             {index < professors.length - 1 && (
-              <ArrowRight className="w-4 h-4 mx-1 text-muted-foreground" />
+              <ArrowRight className="w-5 h-5 mx-2 text-muted-foreground/50" />
             )}
           </div>
         ))}
         
-        {/* Seta de volta ao início (Round-Robin) */}
-        <div className="flex items-center text-muted-foreground text-xs font-hand">
-          <ArrowRight className="w-4 h-4 mx-1" />
-          <span>↩️ volta</span>
+        {/* Indicador de ciclo */}
+        <div className="flex items-center gap-2 ml-2 text-muted-foreground">
+          <ArrowRight className="w-5 h-5" />
+          <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-muted/30 border border-border/30">
+            <RotateCcw className="w-4 h-4" />
+            <span className="text-xs font-medium">Reinicia</span>
+          </div>
         </div>
       </div>
-      
-      <p className="mt-3 text-xs text-muted-foreground font-hand text-center">
-        Cada thread executa um "quantum" (1 ataque) e passa a vez
-      </p>
     </div>
   );
 }
