@@ -26,7 +26,7 @@ export const PROFESSOR_DATA: Record<ProfessorName, Omit<Professor, 'hp' | 'maxHp
   maykol: {
     name: 'maykol',
     displayName: 'Maykol',
-    attack: 18,      // Alto ataque
+    attack: 22,      // Alto ataque
     defense: 8,      // Baixa defesa
     speed: 35,       // Velocidade média
     color: 'professor-maykol',
